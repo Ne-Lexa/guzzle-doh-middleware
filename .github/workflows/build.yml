@@ -65,4 +65,4 @@ jobs:
                 run: vendor/bin/psalm
 
             -   name: Run tests with phpunit
-                run: vendor/bin/-phpunit -v -c phpunit.xml.dist
+                run: vendor/bin/phpunit -v -c phpunit.xml.dist
