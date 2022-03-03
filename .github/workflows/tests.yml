@@ -13,7 +13,7 @@ jobs:
 
         strategy:
             matrix:
-                os: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+                os: [ 'ubuntu-latest' ]
                 php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
                 dependency-version: [ 'prefer-lowest', 'prefer-stable' ]
 
@@ -33,12 +33,7 @@ jobs:
                     tools: composer:v2, flex
 
             -   name: Determine composer cache directory on Linux or MacOS
-                if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
                 run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
-
-            -   name: Determine composer cache directory on Windows
-                if: matrix.os == 'windows-latest'
-                run: echo "COMPOSER_CACHE_DIR=~\AppData\Local\Composer" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
             -   name: Cache dependencies installed with composer
                 uses: actions/cache@v2
