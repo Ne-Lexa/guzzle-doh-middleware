@@ -105,6 +105,7 @@ class DohMiddleware
             return $handler($request, $options);
         }
 
+        /** @psalm-suppress InvalidCatch */
         try {
             $resolvedItem = $this->resolveDomain($domainName, $options);
 

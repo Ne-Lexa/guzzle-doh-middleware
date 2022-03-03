@@ -60,9 +60,5 @@ jobs:
             -   name: Install dependencies
                 run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi --${{ matrix.dependency-version }}
 
-            -   name: Run psalm
-                if: matrix.dependency-version == 'prefer-stable'
-                run: vendor/bin/psalm
-
             -   name: Run tests with phpunit
                 run: vendor/bin/phpunit -v -c phpunit.xml.dist

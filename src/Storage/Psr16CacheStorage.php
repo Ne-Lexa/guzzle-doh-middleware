@@ -30,6 +30,7 @@ class Psr16CacheStorage implements StorageInterface
     {
         $cacheKey = $this->getCacheKey($domainName);
 
+        /** @psalm-suppress InvalidCatch */
         try {
             $storageItem = $this->cache->get($cacheKey);
 
@@ -47,6 +48,7 @@ class Psr16CacheStorage implements StorageInterface
     {
         $cacheKey = $this->getCacheKey($domainName);
 
+        /** @psalm-suppress InvalidCatch */
         try {
             $this->cache->set($cacheKey, $item, $item->getTTL());
         } catch (InvalidArgumentException $e) {

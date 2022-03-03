@@ -1251,6 +1251,7 @@ $rules = [
             'noinspection',
             'lang',
             'todo',
+            'psalm-suppress',
         ],
     ],
 
