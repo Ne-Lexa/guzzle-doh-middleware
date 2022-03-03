@@ -1,0 +1,67 @@
+name: Tests
+
+on: [ push, pull_request ]
+
+jobs:
+    tests:
+        name: PHP ${{ matrix.php }} / ${{ matrix.os }} / ${{ matrix.dependency-version }}
+
+        env:
+            extensions: curl
+            key: cache-v1
+            PHP_INI: date.timezone='UTC', memory_limit=-1
+
+        strategy:
+            matrix:
+                os: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+                php: [ '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
+                dependency-version: [ 'prefer-lowest', 'prefer-stable' ]
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: ${{ env.extensions }}
+                    coverage: pcov
+                    ini-values: ${{ env.PHP_INI }}
+                    tools: composer:v2, flex
+
+            -   name: Determine composer cache directory
+                run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
+
+            -   name: Cache dependencies installed with composer
+                uses: actions/cache@v2
+                with:
+                    path: "${{ env.COMPOSER_CACHE_DIR }}"
+                    key: "php-${{ matrix.php }}-composer-${{ matrix.dependency-version }}}-${{ matrix.os }}-${{ hashFiles('composer.lock') }}"
+                    restore-keys: "php-${{ matrix.php }}-composer-${{ matrix.dependency-version }}-${{ matrix.os }}-"
+
+            -   name: Print PHP Version
+                run: php -v
+
+            -   name: Print PHP cURL Version
+                run: php -r 'echo curl_version()["version"];'
+
+            -   name: Print Composer Version
+                run: composer -V
+
+            -   name: Print PHP Extensions
+                run: php -m
+
+            -   name: Validate composer.json and composer.lock
+                run: composer validate --strict
+
+            -   name: Install dependencies
+                run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi --${{ matrix.dependency-version }}
+
+            -   name: Run psalm
+                run: vendor/bin/psalm
+
+            -   name: Run tests with phpunit
+                run: vendor/bin/-phpunit -v -c phpunit.xml.dist
