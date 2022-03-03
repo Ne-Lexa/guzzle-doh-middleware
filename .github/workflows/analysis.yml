@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
     analysis:
-        name: PHP ${{ matrix.php }} / ${{ matrix.os }}
+        name: Psalm / PHP ${{ matrix.php }} / ${{ matrix.os }}
 
         env:
             extensions: curl

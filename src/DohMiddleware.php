@@ -119,7 +119,10 @@ class DohMiddleware
 
                 if ($options[self::OPTION_DOH_SHUFFLE]) {
                     if ($this->isSupportShuffleIps()) {
-                        /** @noinspection PhpElementIsNotAvailableInCurrentPhpVersionInspection */
+                        /**
+                         * @noinspection PhpElementIsNotAvailableInCurrentPhpVersionInspection
+                         * @psalm-suppress UndefinedConstant
+                         */
                         $curlOptions[\CURLOPT_DNS_SHUFFLE_ADDRESSES] = true;
                     } else {
                         shuffle($ipAddresses);
