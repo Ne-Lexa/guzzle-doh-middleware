@@ -7,6 +7,7 @@
 [![Latest Stable Version](https://poser.pugx.org/nelexa/guzzle-doh-middleware/v)](https://packagist.org/packages/nelexa/guzzle-doh-middleware)
 [![PHP Version Require](https://poser.pugx.org/nelexa/guzzle-doh-middleware/require/php)](https://packagist.org/packages/nelexa/guzzle-doh-middleware)
 [![Tests](https://github.com/Ne-Lexa/guzzle-doh-middleware/actions/workflows/tests.yml/badge.svg)](https://github.com/Ne-Lexa/guzzle-doh-middleware/actions/workflows/tests.yml)
+[![Analysis](https://github.com/Ne-Lexa/guzzle-doh-middleware/actions/workflows/analysis.yml/badge.svg)](https://github.com/Ne-Lexa/guzzle-doh-middleware/actions/workflows/analysis.yml)
 [![Build Status](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/badges/build.png?b=main)](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/build-status/main)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/?branch=main)
 [![Code Coverage](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/Ne-Lexa/guzzle-doh-middleware/?branch=main)
