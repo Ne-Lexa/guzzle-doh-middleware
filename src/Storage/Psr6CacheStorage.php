@@ -26,33 +26,33 @@ class Psr6CacheStorage implements StorageInterface
         $this->cachePool = $cachePool;
     }
 
-    public function get(string $domainName): ?StorageItem
+    public function get(string $domainName): ?DnsRecord
     {
         $cacheKey = $this->getCacheKey($domainName);
 
         /** @psalm-suppress InvalidCatch */
         try {
-            $storageItem = $this->cachePool->getItem($cacheKey)->get();
+            $dnsRecord = $this->cachePool->getItem($cacheKey)->get();
 
-            if (!$storageItem instanceof StorageItem) {
+            if (!$dnsRecord instanceof DnsRecord) {
                 return null;
             }
 
-            return $storageItem;
+            return $dnsRecord;
         } catch (InvalidArgumentException $e) {
             throw new \RuntimeException('Invalid cache key ' . $cacheKey, 0, $e);
         }
     }
 
-    public function save(string $domainName, StorageItem $item): void
+    public function save(string $domainName, DnsRecord $dnsRecord): void
     {
         $cacheKey = $this->getCacheKey($domainName);
 
         /** @psalm-suppress InvalidCatch */
         try {
             $cacheItem = $this->cachePool->getItem($cacheKey);
-            $cacheItem->expiresAfter($item->getTTL());
-            $cacheItem->set($item);
+            $cacheItem->expiresAfter($dnsRecord->getTTL());
+            $cacheItem->set($dnsRecord);
             $this->cachePool->save($cacheItem);
         } catch (InvalidArgumentException $e) {
             throw new \RuntimeException('Invalid cache key ' . $cacheKey, 0, $e);

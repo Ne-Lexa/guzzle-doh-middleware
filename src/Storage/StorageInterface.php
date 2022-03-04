@@ -15,7 +15,7 @@ namespace Nelexa\Doh\Storage;
 
 interface StorageInterface
 {
-    public function get(string $domainName): ?StorageItem;
+    public function get(string $domainName): ?DnsRecord;
 
-    public function save(string $domainName, StorageItem $item): void;
+    public function save(string $domainName, DnsRecord $dnsRecord): void;
 }

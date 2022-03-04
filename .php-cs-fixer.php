@@ -1252,6 +1252,9 @@ $rules = [
             'lang',
             'todo',
             'psalm-suppress',
+            'psalm-param',
+            'psalm-return',
+            'psalm-var',
         ],
     ],
 

@@ -86,7 +86,7 @@ final class DohMiddlewareTest extends TestCase
         ];
 
         $sites = [
-            'https://httpbin.org/get',
+            'https://www.gmail.com',
         ];
 
         // matrix
