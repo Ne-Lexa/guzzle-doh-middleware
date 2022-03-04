@@ -232,7 +232,8 @@ final class DomainResolver
         $storages = [];
         foreach ($entries as $answerDomainName => $answerEntry) {
             foreach ($answerEntry as $resourceType => $entryValue) {
-                $ttl = $defaultTtl ?? max(10, min(...($entryValue['ttl'] ?? [])));
+                /** @psalm-suppress ArgumentTypeCoercion */
+                $ttl = $defaultTtl ?? max(10, min($entryValue['ttl'] ?? []));
                 $dnsRecord = new DnsRecord($answerDomainName, $entryValue['data'] ?? [], $resourceType, $ttl);
                 $storages[$answerDomainName] = $dnsRecord;
                 $this->storage->save($answerDomainName, $dnsRecord);
