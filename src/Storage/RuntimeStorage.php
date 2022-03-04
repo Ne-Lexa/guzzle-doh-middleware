@@ -15,23 +15,23 @@ namespace Nelexa\Doh\Storage;
 
 class RuntimeStorage implements StorageInterface
 {
-    /** @var array<string, \Nelexa\Doh\Storage\StorageItem> */
+    /** @var array<string, \Nelexa\Doh\Storage\DnsRecord> */
     private $cache = [];
 
-    public function get(string $domainName): ?StorageItem
+    public function get(string $domainName): ?DnsRecord
     {
-        $storageItem = $this->cache[$domainName] ?? null;
+        $dnsRecord = $this->cache[$domainName] ?? null;
 
-        if ($storageItem !== null && $storageItem->getExpiredAt() < new \DateTimeImmutable()) {
+        if ($dnsRecord !== null && $dnsRecord->getExpiredAt() < new \DateTimeImmutable()) {
             unset($this->cache[$domainName]);
-            $storageItem = null;
+            $dnsRecord = null;
         }
 
-        return $storageItem;
+        return $dnsRecord;
     }
 
-    public function save(string $domainName, StorageItem $item): void
+    public function save(string $domainName, DnsRecord $dnsRecord): void
     {
-        $this->cache[$domainName] = $item;
+        $this->cache[$domainName] = $dnsRecord;
     }
 }

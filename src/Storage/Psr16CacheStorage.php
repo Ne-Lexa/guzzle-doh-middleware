@@ -26,31 +26,31 @@ class Psr16CacheStorage implements StorageInterface
         $this->cache = $cache;
     }
 
-    public function get(string $domainName): ?StorageItem
+    public function get(string $domainName): ?DnsRecord
     {
         $cacheKey = $this->getCacheKey($domainName);
 
         /** @psalm-suppress InvalidCatch */
         try {
-            $storageItem = $this->cache->get($cacheKey);
+            $dnsRecord = $this->cache->get($cacheKey);
 
-            if (!$storageItem instanceof StorageItem) {
+            if (!$dnsRecord instanceof DnsRecord) {
                 return null;
             }
 
-            return $storageItem;
+            return $dnsRecord;
         } catch (InvalidArgumentException $e) {
             throw new \RuntimeException('Invalid cache key ' . $cacheKey, 0, $e);
         }
     }
 
-    public function save(string $domainName, StorageItem $item): void
+    public function save(string $domainName, DnsRecord $dnsRecord): void
     {
         $cacheKey = $this->getCacheKey($domainName);
 
-        /** @psalm-suppress InvalidCatch */
+        /** @psalm-suppress InvalidCatch,InvalidArgument */
         try {
-            $this->cache->set($cacheKey, $item, $item->getTTL());
+            $this->cache->set($cacheKey, $dnsRecord, $dnsRecord->getTTL());
         } catch (InvalidArgumentException $e) {
             throw new \RuntimeException('Invalid cache key ' . $cacheKey, 0, $e);
         }

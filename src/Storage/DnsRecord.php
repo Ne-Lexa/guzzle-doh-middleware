@@ -15,7 +15,7 @@ namespace Nelexa\Doh\Storage;
 
 use LibDNS\Records\ResourceTypes;
 
-class StorageItem implements \Countable
+class DnsRecord implements \Countable
 {
     /** @var bool */
     public $cacheHit = false;
