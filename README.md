@@ -248,7 +248,7 @@ $stack = HandlerStack::create();
 $stack->push(DohMiddleware::create($cache), 'doh');
 $client = new Client([
     'handler' => $stack,
-    'doh_shuffle' => false,
+    'doh_shuffle' => true,
 ]);
 ```
 
